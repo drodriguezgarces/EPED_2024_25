@@ -16,7 +16,9 @@ public class TaskPlannerSequence implements TaskPlannerIF{
 	 * @param text: descripción de la tarea
 	 * @param date: fecha en la que la tarea debe completarse
 	 */
-	public void add(String text,int date) {}
+	public void add(String text,int date) {
+		
+	}
 
 	/* Elimina una tarea
 	 * @param date: fecha de la tarea que se debe eliminar
