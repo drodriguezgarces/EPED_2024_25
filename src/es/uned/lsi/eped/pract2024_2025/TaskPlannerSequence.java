@@ -17,7 +17,12 @@ public class TaskPlannerSequence implements TaskPlannerIF{
 	 * @param date: fecha en la que la tarea debe completarse
 	 */
 	public void add(String text,int date) {
-		
+		Task newTask = new Task(text, date);
+	    int index = 0;
+	    while (index < futureTasks.size() && futureTasks.get(index).getDate() < date) {
+	        index++;
+	    }
+	    futureTasks.add(index, newTask);
 	}
 
 	/* Elimina una tarea
