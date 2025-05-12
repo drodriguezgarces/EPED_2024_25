@@ -19,8 +19,8 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	protected SequenceIF<TaskIF> futureTasks;
 
 	public TaskPlannerSequence() {
-	    this.futureTasks = new SequenceIF<>(); // Inicializa futureTasks
-	    this.pastTasks = new SequenceIF<TaskIF>();  // Inicializa pastTasks
+	    this.futureTasks = new Sequence<>(); // Inicializa futureTasks
+	    this.pastTasks = new Sequence<>();  // Inicializa pastTasks
 	}
 	
 	/*
