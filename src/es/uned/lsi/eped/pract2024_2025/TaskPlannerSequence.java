@@ -1,9 +1,6 @@
 package es.uned.lsi.eped.pract2024_2025;
 
-import java.util.ArrayList;
-
 import es.uned.lsi.eped.DataStructures.IteratorIF;
-import es.uned.lsi.eped.DataStructures.Sequence;
 import es.uned.lsi.eped.DataStructures.SequenceIF;
 
 public class TaskPlannerSequence implements TaskPlannerIF {
@@ -18,11 +15,6 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	/* La estructura que almacena las tareas futuras debe ser una secuencia */
 	protected SequenceIF<TaskIF> futureTasks;
 
-	public TaskPlannerSequence() {
-	    this.futureTasks = new Sequence<>(); // Inicializa futureTasks
-	    this.pastTasks = new Sequence<>();  // Inicializa pastTasks
-	}
-	
 	/*
 	 * Añade una nueva tarea
 	 * 
@@ -33,10 +25,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	public void add(String text, int date) {
 		Task newTask = new Task(text, date);
 		int index = 0;
-		while (index < futureTasks.size() && futureTasks.get(index).getDate() < date) {
-			index++;
-		}
-		futureTasks.add(index, newTask); // Inserta en la posición correcta para mantener el orden
+		
 	}
 
 	/*
@@ -45,7 +34,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 * @param date: fecha de la tarea que se debe eliminar
 	 */
 	public void delete(int date) {
-		futureTasks.removeIf(task -> task.getDate() == date); // Elimina la tarea con la fecha dada
+		
 	}
 
 	/*
@@ -57,16 +46,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void move(int origDate, int newDate) {
 		Task taskToMove = null;
-		for (Task task : futureTasks) {
-			if (task.getDate() == origDate) {
-				taskToMove = task;
-				break;
-			}
-		}
-		if (taskToMove != null) {
-			futureTasks.remove(taskToMove); // Elimina la tarea de la lista
-			this.add(taskToMove.getText(), newDate); // La vuelve a añadir con la nueva fecha
-		}
+		
 	}
 
 	/*
@@ -74,9 +54,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void execute() {
 		if (!futureTasks.isEmpty()) {
-			Task task = futureTasks.remove(0); // Saca la tarea más cercana
-			task.setCompleted(); // La marca como completada
-			pastTasks.add(task); // La añade al histórico
+			
 		}
 	}
 
@@ -86,8 +64,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void discard() {
 		if (!futureTasks.isEmpty()) {
-	        Task task = futureTasks.remove(0); // Saca la tarea más cercana
-	        pastTasks.add(task); // La añade al histórico sin marcarla como completada
+	        
 	    }
 	}
 
