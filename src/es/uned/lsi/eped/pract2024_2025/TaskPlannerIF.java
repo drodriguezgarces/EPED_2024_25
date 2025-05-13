@@ -19,18 +19,18 @@ public interface TaskPlannerIF {
 	 * @param origDate: fecha actual de la tarea
 	 * @param newDate: nueva fecha de la tarea
 	 */
-
 	public void move(int origDate,int newDate);
+	
 	/* Ejecuta la próxima tarea:
 	 * la mete en el histórico marcándola como completada
 	 */
-
 	public void execute();
+	
 	/* Descarta la próxima tarea:
 	 * la mete en el histórico marcándola como no completada
 	 */
 	public void discard();
-
+	
 	/* Devuelve un iterador de las tareas futuras */
 	public IteratorIF<TaskIF> iteratorFuture();
 

@@ -25,7 +25,16 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	public void add(String text, int date) {
 		Task newTask = new Task(text, date);
 		int index = 0;
-		
+
+		IteratorIF<TaskIF> it = futureTasks.iterator();
+		while (it.hasNext()) {
+			TaskIF task = it.getNext();
+			if (task.getDate() > date) {
+				break;
+			}
+			index++;
+		}
+		//futureTasks.setValue(index, newTask);
 	}
 
 	/*
@@ -34,7 +43,17 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 * @param date: fecha de la tarea que se debe eliminar
 	 */
 	public void delete(int date) {
-		
+		IteratorIF<TaskIF> it = futureTasks.iterator();
+		int index = 0;
+
+		while (it.hasNext()) {
+			TaskIF task = it.getNext();
+			if (task.getDate() == date) {
+				//futureTasks.remove(index);
+				break;
+			}
+			index++;
+		}
 	}
 
 	/*
@@ -46,7 +65,24 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void move(int origDate, int newDate) {
 		Task taskToMove = null;
-		
+		IteratorIF<TaskIF> it = futureTasks.iterator();
+		int index = 0;
+
+		// Encuentra y elimina la tarea con la fecha original
+		while (it.hasNext()) {
+			TaskIF task = it.getNext();
+			if (task.getDate() == origDate) {
+				taskToMove = (Task) task;
+				//futureTasks.remove(index);
+				break;
+			}
+			index++;
+		}
+
+		// Si se encontró la tarea, se actualiza la fecha y se vuelve a añadir
+		if (taskToMove != null) {
+			//set(taskToMove.getDate(), newDate);
+		}
 	}
 
 	/*
@@ -54,7 +90,10 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void execute() {
 		if (!futureTasks.isEmpty()) {
-			
+			TaskIF task = (TaskIF) futureTasks.iterator(); // Obtiene la primera tarea
+			//futureTasks.remove(0); // La elimina de las tareas futuras
+			task.setCompleted(); // Marca la tarea como completada
+			//pastTasks.add(task); // La añade al histórico
 		}
 	}
 
@@ -64,7 +103,10 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void discard() {
 		if (!futureTasks.isEmpty()) {
-	        
+			TaskIF task = futureTasks.getFirst(); // Obtiene la primera tarea
+	        futureTasks.clear(); // La elimina de las tareas futuras
+	        task.setCompleted(); // Marca la tarea como no completada
+	        //pastTasks.add(task); // La añade al histórico
 	    }
 	}
 
@@ -75,7 +117,7 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 
 	/* Devuelve un iterador del histórico de tareas pasadas */
 	public IteratorIF<TaskIF> iteratorPast() {
-	    return pastTasks.iterator();
+		return pastTasks.iterator();
 	}
 
 }

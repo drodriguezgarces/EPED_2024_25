@@ -20,22 +20,22 @@ public class Task implements TaskIF {
 	
 	/* Devuelve el texto de la tarea */
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
 	/* Devuelve la fecha de la tarea */
 	public int getDate() {
-		return this.date;
+		return date;
 	}
 
 	/* Devuelve si la tarea ha sido completada o no */
 	public boolean getCompletion() {
-		return this.completed;
+		return completed;
 	}
 
 	/* Compara la tarea actual con una tarea llamante */
 	public int compareTo(TaskIF T) {
-		return Integer.compare(this.date, getDate());
+		return Integer.compare(date, getDate());
 	}
 
 }

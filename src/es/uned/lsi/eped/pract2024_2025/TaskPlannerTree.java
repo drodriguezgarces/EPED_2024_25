@@ -17,28 +17,38 @@ public class TaskPlannerTree implements TaskPlannerIF{
 	 * @param text: descripción de la tarea
 	 * @param date: fecha en la que la tarea debe completarse
 	 */
-	public void add(String text,int date) {}
+	public void add(String text,int date) {
+		
+	}
 
 	/* Elimina una tarea
 	 * @param date: fecha de la tarea que se debe eliminar
 	 */
-	public void delete(int date) {}
+	public void delete(int date) {
+		
+	}
 
 	/* Reprograma una tarea
 	 * @param origDate: fecha actual de la tarea
 	 * @param newDate: nueva fecha de la tarea
 	 */
-	public void move(int origDate,int newDate) {}
+	public void move(int origDate,int newDate) {
+		
+	}
 
 	/* Ejecuta la próxima tarea:
 	 * la mete en el histórico marcándola como completada
 	 */
-	public void execute() {}
+	public void execute() {
+		
+	}
 
 	/* Descarta la próxima tarea:
 	 * la mete en el histórico marcándola como no completada
 	 */
-	public void discard() {}
+	public void discard() {
+		
+	}
 
 	/* Devuelve un iterador de las tareas futuras */
 	public IteratorIF<TaskIF> iteratorFuture() {
