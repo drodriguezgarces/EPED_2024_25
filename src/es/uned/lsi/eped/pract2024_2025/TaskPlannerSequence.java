@@ -23,18 +23,20 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 * @param date: fecha en la que la tarea debe completarse
 	 */
 	public void add(String text, int date) {
-		Task newTask = new Task(text, date);
-		int index = 0;
+		Task newTask = new Task(text, date); // Crear nueva tarea
+	    int index = 0;
 
-		IteratorIF<TaskIF> it = futureTasks.iterator();
-		while (it.hasNext()) {
-			TaskIF task = it.getNext();
-			if (task.getDate() > date) {
-				break;
-			}
-			index++;
-		}
-		//futureTasks.setValue(index, newTask);
+	    // Encontrar la posición adecuada para insertar la tarea
+	    IteratorIF<TaskIF> it = futureTasks.iterator();
+	    while (it.hasNext()) {
+	        TaskIF task = it.getNext();
+	        if (task.getDate() > date) {
+	            break;
+	        }
+	        index++;
+	    }
+	    // Insertar la tarea en la posición encontrada
+	    futureTasks.insert(index, newTask);
 	}
 
 	/*
@@ -44,16 +46,16 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void delete(int date) {
 		IteratorIF<TaskIF> it = futureTasks.iterator();
-		int index = 0;
+	    int index = 0;
 
-		while (it.hasNext()) {
-			TaskIF task = it.getNext();
-			if (task.getDate() == date) {
-				//futureTasks.remove(index);
-				break;
-			}
-			index++;
-		}
+	    while (it.hasNext()) {
+	        TaskIF task = it.getNext();
+	        if (task.getDate() == date) {
+	            futureTasks.remove(index);
+	            break;
+	        }
+	        index++;
+	    }
 	}
 
 	/*
@@ -65,24 +67,25 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void move(int origDate, int newDate) {
 		Task taskToMove = null;
-		IteratorIF<TaskIF> it = futureTasks.iterator();
-		int index = 0;
+	    IteratorIF<TaskIF> it = futureTasks.iterator();
+	    int index = 0;
 
-		// Encuentra y elimina la tarea con la fecha original
-		while (it.hasNext()) {
-			TaskIF task = it.getNext();
-			if (task.getDate() == origDate) {
-				taskToMove = (Task) task;
-				//futureTasks.remove(index);
-				break;
-			}
-			index++;
-		}
+	    // Encontrar y eliminar la tarea con la fecha original
+	    while (it.hasNext()) {
+	        TaskIF task = it.getNext();
+	        if (task.getDate() == origDate) {
+	            taskToMove = (Task) task;
+	            futureTasks.remove(index);
+	            break;
+	        }
+	        index++;
+	    }
 
-		// Si se encontró la tarea, se actualiza la fecha y se vuelve a añadir
-		if (taskToMove != null) {
-			//set(taskToMove.getDate(), newDate);
-		}
+	    // Si se encontró la tarea, actualizar la fecha y añadirla nuevamente
+	    if (taskToMove != null) {
+	        taskToMove.setDate(newDate);
+	        add(taskToMove.getText(), newDate);
+	    }
 	}
 
 	/*
@@ -90,11 +93,11 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void execute() {
 		if (!futureTasks.isEmpty()) {
-			TaskIF task = (TaskIF) futureTasks.iterator(); // Obtiene la primera tarea
-			//futureTasks.remove(0); // La elimina de las tareas futuras
-			task.setCompleted(); // Marca la tarea como completada
-			//pastTasks.add(task); // La añade al histórico
-		}
+	        TaskIF task = futureTasks.get(0); // Obtener la primera tarea
+	        futureTasks.remove(0); // Remover de tareas futuras
+	        ((Task) task).setCompleted(); // Marcar como completada
+	        pastTasks.add(task); // Añadir al histórico
+	    }
 	}
 
 	/*
@@ -103,10 +106,10 @@ public class TaskPlannerSequence implements TaskPlannerIF {
 	 */
 	public void discard() {
 		if (!futureTasks.isEmpty()) {
-			TaskIF task = futureTasks.getFirst(); // Obtiene la primera tarea
-	        futureTasks.clear(); // La elimina de las tareas futuras
-	        task.setCompleted(); // Marca la tarea como no completada
-	        //pastTasks.add(task); // La añade al histórico
+	        TaskIF task = futureTasks.get(0); // Obtener la primera tarea
+	        futureTasks.remove(0); // Remover de tareas futuras
+	        //((Task) task).setCompleted(false); // Marcar como no completada
+	        pastTasks.add(task); // Añadir al histórico
 	    }
 	}
 
